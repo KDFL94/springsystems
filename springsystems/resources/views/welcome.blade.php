@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Spring Systems</title>
 
@@ -24,20 +25,30 @@
     <body class="antialiased" style="padding-top: 25px">
         <div class="container">
 
+            @if(session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            <br />
 
             <h5>Add Company</h5>
-            <form name="companyForm" id="companyForm">
+            <form name="companyForm" id="companyForm" method="post" action="{{url('submit-company')}}">
                 @csrf
                 <div class="form-group">
                     <label for="companyName">Company Name</label>
                     <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Company Name">
                 </div>
+                <br />
                 <div class="form-group">
                     <label for="companyAddress">Company Address</label>
                     <textarea class="form-control" id="companyAddress" name="companyAddress" rows="3"></textarea>
                 </div>
+                <br />
                 <button type="submit" class="btn btn-primary">Add Company</button>
             </form>
+            
 
         </div>
     </body>

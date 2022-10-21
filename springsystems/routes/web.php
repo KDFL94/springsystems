@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
- 
-Route::get('/user', [HomeController::class, 'index']);
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +15,6 @@ Route::get('/user', [HomeController::class, 'index']);
 |
 */
 
-Route::get('/welcome', function () {
-    return view('welcome');
-});
 
 Route::get('/', [HomeController::class, 'index']);
+Route::post('submit-company', [CompanyController::class, 'store']);
