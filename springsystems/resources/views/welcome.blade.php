@@ -22,7 +22,8 @@
             }
         </style>
     </head>
-    <body class="antialiased" style="padding-top: 25px">
+    <body class="antialiased" style="padding: 25px 0;">
+        
         <div class="container">
 
             @if(session('status'))
@@ -37,18 +38,68 @@
             <form name="companyForm" id="companyForm" method="post" action="{{url('submit-company')}}">
                 @csrf
                 <div class="form-group">
-                    <label for="companyName">Company Name</label>
+                    <label required for="companyName">Company Name</label>
                     <input type="text" class="form-control" name="companyName" id="companyName" placeholder="Company Name">
                 </div>
                 <br />
                 <div class="form-group">
                     <label for="companyAddress">Company Address</label>
-                    <textarea class="form-control" id="companyAddress" name="companyAddress" rows="3"></textarea>
+                    <textarea required class="form-control" id="companyAddress" name="companyAddress" rows="3"></textarea>
                 </div>
                 <br />
                 <button type="submit" class="btn btn-primary">Add Company</button>
             </form>
+
+            <br />
+            <br />
+
+            <h5>Add Employee</h5>
+            <form name="companyForm" id="companyForm" method="post" action="{{url('submit-employee')}}">
+                @csrf
+                <div class="form-group">
+                    <label for="employeeFirstName">Employee First Name</label>
+                    <input required type="text" class="form-control" name="employeeFirstName" id="employeeFirstName" placeholder="Employee First Name">
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="employeeLastName">Employee Last Name</label>
+                    <input required type="text" class="form-control" name="employeeLastName" id="employeeLastName" placeholder="Employee Last Name">
+                </div>
+                @if(!empty($companies) && isset($companies))
+                    <br />
+                    <div class="form-group">
+                        <label for="employeeCompany">Employee Company</label>
+                        <select name="employeeCompany" class="form-control" id="employeeCompany">
+                            @foreach ($companies as $company)
+                                <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
+                <br />
+                <button type="submit" class="btn btn-primary">Add Employee</button>
+            </form>
             
+            <br />
+            @if(!empty($companies) && isset($companies))
+                <h5>Company List</h5>
+                <ul class="list-group">
+                    @foreach ($companies as $company)
+                        <li class="list-group-item">{{ $company->company_name }} - Employee Count: {{ $company->employees()->count() }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+            <br />
+            @if(!empty($employees) && isset($employees))
+                <h5>Employee List</h5>
+                <ul class="list-group">
+                    @foreach ($employees as $employee)
+                        <li class="list-group-item">{{ $employee->employee_first_name }} {{ $employee->employee_last_name }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
 
         </div>
     </body>

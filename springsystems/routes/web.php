@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ use App\Http\Controllers\CompanyController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::post('submit-company', [CompanyController::class, 'store']);
+Route::post('submit-employee', [EmployeeController::class, 'store']);
