@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\HomeController;
+ 
+Route::get('/user', [HomeController::class, 'index']);
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +16,8 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', function () {
-
-    try {
-        DB::connection()->getPdo();
-    } catch (\Exception $e) {
-        die("Could not connect to the database.  Please check your configuration. error:" . $e );
-    }
-
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('/', [HomeController::class, 'index']);
